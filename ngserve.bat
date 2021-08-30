@@ -1,0 +1,3 @@
+echo Starting server...
+cls
+ng serve
