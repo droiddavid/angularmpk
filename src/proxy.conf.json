@@ -1,6 +1,6 @@
 {
-    "": {
-      "target": "https://firestore.googleapis.com/google.firestore.v1.Firestore/Listen/channel?database=projects%2Fmy-personal-kitchen%2Fdatabases%2F(default)&VER=8&RID=93340&CVER=22&X-HTTP-Session-Id=gsessionid&%24httpHeaders=X-Goog-Api-Client%3Agl-js%2F%20fire%2F9.0.0%0D%0AContent-Type%3Atext%2Fplain%0D%0A&zx=rn486rb7iin&t=1",
+    "/": {
+        "target": "https://morning-reaches-11022.herokuapp.com/https://angdev.mypersonalkitchen.com",
       "secure": false
     }
   }

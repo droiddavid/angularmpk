@@ -1,0 +1,28 @@
+.container {
+	background-color: darkgray;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 10fr 1fr;
+	gap: 0px 0px;
+	grid-auto-flow: row;
+	grid-template-areas:
+		"toolbar"
+		"body"
+		"footer";
+}
+
+
+.navbar-brand {
+	color: #fff;
+}
+
+
+.navbar-toggler {
+	color: #fff;
+}
+
+
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+    color: green;
+}

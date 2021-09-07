@@ -1,0 +1,3 @@
+cls
+echo Building...
+ng build

@@ -1,0 +1,19 @@
+<p>sign-in works! sho does</p>
+
+<h1 *ngIf="authenticationService.userData | async">Hello {{ (authenticationService.userData | async)?.email }}</h1>
+
+<div *ngIf="!(authenticationService.userData | async)">
+  <form>
+    <input type="text" [(ngModel)]="email" placeholder="email" autocomplete="username">
+    <input type="password" [(ngModel)]="password" placeholder="password" autocomplete="current-password">
+
+    <button (click)="signUp()">Sign Up</button>
+
+    <button (click)="signIn()">Login</button>
+  </form>
+</div>
+
+<button (click)="signOut()" *ngIf="authenticationService.userData | async">Logout</button>
+
+
+
