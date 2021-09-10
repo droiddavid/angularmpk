@@ -1,27 +1,57 @@
-.container {
+/*.container {
 	background-color: darkgray;
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: 1fr 10fr 1fr;
-	gap: 0px 0px;
+	gap: 2px 2px;
 	grid-auto-flow: row;
 	grid-template-areas:
 		"toolbar"
 		"body"
 		"footer";
-}
+	justify-items: stretch;
+	align-items: stretch;
+}*/
+
+.application {
+	border: 3px dotted red;
+	width: 200px;
+	height: 768px;
+	display: grid;
+	grid: 
+	    "header" auto
+	 "body" 1fr
+	 "footer" auto
+	    / 1fr;
+	grid-gap: 16px;
+ }
+ .header {
+	border: 3px dotted red;
+	grid-area: header;
+ }
+ .body {
+	border: 3px dotted red;
+	grid-area: body;
+ }
+ .footer {
+	border: 3px dotted red;
+	grid-area: footer;
+ }
+ .application > div {
+	border: 3px dotted red;
+	background: gray;
+ }
 
 
+
+
+ 
 .navbar-brand {
 	color: #fff;
 }
-
-
 .navbar-toggler {
 	color: #fff;
 }
-
-
 .navbar-custom .navbar-brand,
 .navbar-custom .navbar-text {
     color: green;
