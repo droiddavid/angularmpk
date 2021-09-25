@@ -1,1 +1,437 @@
-<p>Sign Up works!</p>
+<!-- <nav class="navbar fixed-top navbar-expand-sm navbar-light">
+
+
+	<button 
+		id="goToHome"
+		class="navbar-toggler"  
+		ng-click="$ctrl.go('home');"
+		type="button" 
+		data-toggle="collapse" 
+		data-target="#navbarNav" 
+		aria-controls="navbarNav" 
+		aria-expanded="false"
+		aria-label="Go Back">
+			<i class="fas fa-home" style="color: white;"></i>
+	</button>
+
+
+	<span id="title" ng-click="$ctrl.go('home');" class="navbar-brand mr-3">Register</span>
+
+
+	<button id="registerHamburgerMenu" type="button" class="navbar-toggler" 
+		data-toggle="collapse" 
+		data-target="#navbarCollapse"
+	>
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+
+	<div class="collapse navbar-collapse" id="navbarCollapse">
+		<div>
+			<div class="navbar-nav ml-auto" ng-hide="$ctrl.userServiceInitialized">
+				<a id="login" class="nav-item nav-link" ng-click="$ctrl.go('login')">Login</a>
+			</div>
+			<div class="navbar-nav ml-auto" ng-show="$ctrl.userServiceInitialized">
+				<a id="logout" class="nav-item nav-link" ng-click="$ctrl.logout()">Logout</a>
+				<a id="returnToDashboard" class="nav-item nav-link" ng-click="$ctrl.go('cookDashboard')">Return to Dashboard</a>
+			</div>
+		</div>
+	</div>
+</nav> -->
+
+<div class="container">
+	<div class="wrapper">
+
+		<div class="company-info">
+			<h3>Sign Up</h3>
+			<span>Start your journey here!</span>
+		</div>
+
+		<div class="contact">
+			<h3>Register</h3>
+
+
+
+
+		
+
+		<!-- toast -->
+		<div #myToast id="emailToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+
+			<div class="toast-header">
+				<!--<img src="..." class="rounded mr-2" alt="...">-->
+				<strong class="toast_text mr-auto">Something is wrong</strong>
+				<button 
+					type="button" 
+					class="ml-2 mb-1 close"
+					aria-label="Close"
+					style="float: right;"
+					(click)="closeToast()"
+				>
+					<span id="times" aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<div class="toast-body toast_text">
+				Hello, world! This is a toast message.
+			</div>
+		</div>
+
+
+			<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+				<!-- begin username -->
+				<div>
+					<!-- label -->
+					<label for="username">Email Address</label>
+
+					<!-- input -->
+					<input #username
+						id="username" 
+						type="email" 
+						name="username"
+						[(ngModel)]="_username"
+						formControlName="username"
+						placeholder="Email Address"
+						autocomplete="username"
+						(blur)="onBlur_validateEmail(username)"
+					/>
+				</div>
+				<!-- end username-->
+
+
+
+
+
+
+
+				<!-- begin email -->
+				<div>
+					<!-- label -->
+					<label for="email">Email Address</label>
+					
+					<!-- input -->
+					<input #email
+						id="email" 
+						name="email"
+						type="email"
+						[(ngModel)]="_email"
+						formControlName="email"
+						placeholder="Confirm Email Address"
+						autocomplete="email"
+						(blur)="onBlur_validateEmail(email)"
+					>
+				</div>
+				<!-- end email -->
+
+
+
+				<!-- begin password - pwd regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$" -->
+				<div>
+					<!-- label -->
+					<label for="password">Password</label>
+
+					<!-- input -->
+					<input #password
+						id="password" 
+						type="password" 
+						name="password"
+						[(ngModel)]="_password"
+						formControlName="password"
+						pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$"
+						placeholder="Password" 
+						required="required"
+						title="Min 8, max 10 characters, at least 1 uppercase, 1 lowercase letter, 1 number and 1 special character."
+						autocomplete="new-password"
+						(blur)="hideNodeListItems()"
+					>
+
+					<!-- eye icon -->
+					<span id="togglePasswordVisibility" class="d-inline large ml-2" (click)="togglePasswordVisibility();">
+						<fa-icon 
+							id="showPasswordEye" 
+							class="success" 
+							[ngStyle]="{'color':'green'}"
+							[icon]="faEye">
+						</fa-icon>
+						<span id="showHidePasswordText">{{ showHidePassword }} Password</span>
+					</span>
+
+					<!-- validators -->
+					<div *ngIf="control('password')?.invalid && (control('password')?.dirty || control('password')?.touched)">
+						<div *ngIf="control('password')?.errors?.maxlength">
+							<p class="alert alert-danger">Must not exceed 20 characters.</p>
+						</div>
+						<div *ngIf="control('password')?.errors?.minlength">
+							<p class="alert alert-danger">Must be at least 8 characters.</p>
+						</div>
+						<div *ngIf="control('password')?.errors?.required">
+							<p class="alert alert-danger">Password is required!</p>
+						</div>
+						<div *ngIf="control('password')?.errors?.pattern">
+							<p class="alert alert-danger">
+								1 uppercase required.
+							</p>
+						</div>
+						<div *ngIf="control('password')?.errors?.pattern">
+							<p class="alert alert-danger">
+								1 lowercase required.
+							</p>
+						</div>
+						<div *ngIf="control('password')?.errors?.pattern">
+							<p class="alert alert-danger">
+								1 number required.
+							</p>
+						</div>
+						<div *ngIf="control('password')?.errors?.pattern">
+							<p class="alert alert-danger">
+								1 special character required.
+							</p>
+						</div>
+					</div>
+				</div>
+				<!-- end password -->
+
+
+				<!-- begin confirm_password -->
+				<div>
+					<!-- label -->
+					<label for="confirm_password">Confirm Password</label>
+					
+					<!-- validation check mark -->
+					<span class="input-group-addon">
+						<i class="fa fa-check"></i>
+					</span>
+					
+					<!-- input -->
+					<input id="confirm_password" 
+						type="password" 
+						name="confirm_password"
+						formControlName="confirm_password"
+						[(ngModel)]="_confirm_password"
+						(blur)="confirmPasswordMatch();"
+						pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$"
+						placeholder="Confirm Password" 
+						required="required" 
+						autocomplete="new-password"
+					>
+
+					<!-- icon (visiblity) -->
+					<span id="toggleConfirmPasswordVisibility"
+						class="d-inline large ml-2"
+						(click)="toggleConfirmPasswordVisibility();"
+					>
+						<fa-icon
+							id="showConfirmPasswordEye"
+							class="success"
+							[icon]="faEye"
+							[ngStyle]="{'color':'green'}"
+							aria-hidden="true"
+						>
+						</fa-icon>
+						<span id="showHideConfirmPasswordText">{{ showHideConfirmPassword }} Password</span>
+					</span>
+
+
+
+					<!-- confirm password validators -->
+					<div *ngIf="control('confirm_password')?.invalid && (control('confirm_password')?.dirty || control('confirm_password')?.touched)">
+						<div *ngIf="control('confirm_password')?.errors?.maxlength">
+							<p class="alert alert-danger">Must not exceed 20 characters.</p>
+						</div>
+						<div *ngIf="control('confirm_password')?.errors?.minlength">
+							<p class="alert alert-danger">Must be at least 8 characters.</p>
+						</div>
+						<div *ngIf="control('confirm_password')?.errors?.required">
+							<p class="alert alert-danger">Password is required!</p>
+						</div>
+						<div *ngIf="control('confirm_password')?.errors?.pattern">
+							<p class="alert alert-danger">
+								1 uppercase required.
+							</p>
+						</div>
+						<div *ngIf="control('confirm_password')?.errors?.pattern">
+							<p class="alert alert-danger">
+								1 lowercase required.
+							</p>
+						</div>
+						<div *ngIf="control('confirm_password')?.errors?.pattern">
+							<p class="alert alert-danger">
+								1 number required.
+							</p>
+						</div>
+						<div *ngIf="control('confirm_password')?.errors?.pattern">
+							<p class="alert alert-danger">
+								1 special character required.
+							</p>
+						</div>
+					</div>
+					<!-- confirm password -->
+				</div>
+				<!-- end confirm_passwrod -->
+
+
+				<!-- begin terms_privacy checkbox -->
+				<div style="display: grid; grid-template-columns: 1fr 2fr; grid-template-rows: 1fr;">
+					<div style="text-align: center; padding: 1rem;">
+						<input 
+							id="terms_privacy" 
+							type="checkbox" 
+							required="required">
+					</div>
+					<div>
+						I accept the 
+							<a href="#">Terms of Use</a> &amp; 
+							<a href="#">Privacy Policy</a>
+					</div>					
+				</div>
+				<!-- end terms_privacy checkbox -->
+
+
+				<!-- begin register button -->
+				<div>
+					<!-- button -->
+					<button 
+						id="quickstart-sign-up" 
+						name="signup" 
+						type="submit" 
+						class="btn btn-success btn-lg btn_register"
+						[disabled]="!isValid"
+					>
+						Register
+					</button>
+				</div>
+				<!-- end register button -->
+				
+				
+
+				<div>
+					Already have an account? <a id="goToLogin" (click)="go('login')">Login here</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+
+<!-- 
+<div class="forms_container">
+	<div class="row">
+		<div class="col-12 pt-5">
+			<form class="contact mt-4">
+
+				<h3>Register</h3>
+
+				<p>Create an account</p>
+				<p>
+					<label for="">Name</label>
+					<input type="text" name="name">
+				</p>
+
+				<div class="form-group">
+					<div class="input-group">
+						<input id="username" 
+							type="email" 
+							class="form-control"
+							name="username"
+							ng-model="$ctrl.username"  
+							placeholder="Email Address" 
+							required="required"
+							autocomplete="username"
+							pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="input-group">
+						<input id="email" 
+							type="email" 
+							class="form-control" 
+							name="email"
+							ng-model="$ctrl.email"
+							ng-blur="$ctrl.confirmEmailMatch();"
+							placeholder="Confirm Email Address" 
+							required="required" 
+							autocomplete="email">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="input-group">
+						<input id="password" 
+							type="password" 
+							class="form-control" 
+							name="password" 
+							ng-model="$ctrl.password"
+							placeholder="Password" 
+							required="required" 
+							autocomplete="new-password"
+						>
+					</div>
+					<span id="togglePasswordVisibility" class="d-inline large ml-2" ng-click="$ctrl.togglePasswordVisibility();">
+						<strong>
+							<i id="showPasswordEye" class="fa fa-eye success" aria-hidden="true"></i>
+						</strong>
+					</span>
+				</div>
+
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon">
+							<i class="fa fa-check"></i>
+						</span>
+						<input id="confirm_password" 
+							type="password" 
+							class="form-control" 
+							name="confirm_password" 
+							ng-model="$ctrl.confirm_password"
+							ng-blur="$ctrl.confirmPasswordMatch();"
+							placeholder="Confirm Password" 
+							required="required" 
+							autocomplete="new-password">
+					</div>
+					<span id="toggleConfirmPasswordVisibility"
+						class="d-inline large ml-2"
+						ng-click="$ctrl.toggleConfirmPasswordVisibility();"
+					><strong><i 
+						id="showConfirmPasswordEye"
+						class="fa fa-eye success" 
+						aria-hidden="true"></i></strong></span>
+				</div>
+
+				<div class="form-group">
+					<label class="checkbox-inline"><input id="terms_privacy" type="checkbox" required="required"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
+				</div>
+
+				<div class="form-group">
+					<button id="quickstart-sign-up" disabled name="signup" type="submit" class="btn btn-success btn-lg btn_register ">Register</button>
+				</div>
+
+				<div class="quickstart-user-details-container">
+					Status: <span id="quickstart-sign-in-status">Unknown</span>
+					<div id="quickstart-account-details" style="display: hidden; color: #fff;"></div>
+				</div>
+
+
+
+			    <div class="text-center">
+				    	Already have an account? <a id="goToLogin" ng-click="$ctrl.go('login')">Login here</a>
+			    </div>
+			</form>
+		</div>
+	<div>
+</div> -->
+
+<!-- <div class="navbar fixed-bottom navbar-light" style="position: fixed; bottom: 0; background-color: #28a745; width: 100%;">
+	<footer class="container-fluid">
+		<div class="row">
+			<div class="col-12">
+				<span>Copyright &copy; 2015 My Personal Kitchen</span>
+				<a href="#" class="text-dark" style="display: inline;">Terms</a>
+				<a href="#" class="text-dark" style="display: inline;">Privacy</a>
+			</div>
+		</div>
+	</footer>
+</div> -->

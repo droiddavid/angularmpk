@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -25,6 +26,8 @@ import { MpkToolbarComponent } from './globalComponents/mpk-toolbar/mpk-toolbar.
 import { MpkFooterComponent } from './globalComponents/mpk-footer/mpk-footer.component';
 import { HomePageComponent } from './components/onboard-entry/home-page/home-page.component';
 import { PageNotFoundComponent } from './components/onboard-entry/page-not-found/page-not-found.component';
+import { MpkToastComponent } from './globalComponents/mpk-toast/mpk-toast.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,8 @@ import { PageNotFoundComponent } from './components/onboard-entry/page-not-found
     MpkToolbarComponent,
     MpkFooterComponent,
     HomePageComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    MpkToastComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +51,8 @@ import { PageNotFoundComponent } from './components/onboard-entry/page-not-found
     AngularFireAuthModule,
     AngularFirestoreModule,
     FormsModule,
+    ReactiveFormsModule,
+    FontAwesomeModule,
 //    ImageCropperModule,
   ],
   providers: [AuthService],

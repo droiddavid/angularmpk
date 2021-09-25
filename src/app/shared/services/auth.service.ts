@@ -38,8 +38,24 @@ export class AuthService {
 
 		this.afAuth.authState.subscribe(async user => {
 			if (user) {
+				debugger;
+				console.log("user" + user);
+				console.table([user]);
+
 				//this.userData = user;
+
 				console.log("user.email: " + user.email);
+				console.log("user.displayName: " + user.displayName);
+				console.log("user.email: " + user.email);
+				console.log("user.phoneNumber: " + user.phoneNumber);
+				console.log("user.photoURL: " + user.photoURL);
+				console.log("user.providerId: " + user.providerId);
+				console.log("user.uid: " + user.uid);
+
+
+
+
+
 				console.log("user.providerData[0]?.displayName: " + user.providerData[0]?.displayName);
 				console.log("user.providerData[0]?.email: " + user.providerData[0]?.email);
 				console.log("user.providerData[0]?.phoneNumber: " + user.providerData[0]?.phoneNumber);
@@ -47,15 +63,15 @@ export class AuthService {
 				console.log("user.providerData[0]?.providerId: " + user.providerData[0]?.providerId);
 				console.log("user.providerData[0]?.uid: " + user.providerData[0]?.uid);
 
-				// console.log('afAuth.currentUser: ' + afAuth.currentUser);
-				// console.table([afAuth.currentUser]);
+				console.log('afAuth.currentUser: ' + afAuth.currentUser);
+				console.table([afAuth.currentUser]);
 
 				localStorage.setItem('user', JSON.stringify(user.providerData[0]));
 
 				this._user = localStorage.getItem('user');
 
-				// if (this._user) {console.log("this._user: " + this._user);}
-				// console.log("this._user should equal: " + this._user);
+				if (this._user) {console.log("this._user: " + this._user);}
+				console.log("this._user should equal: " + this._user);
 			} else {
 				localStorage.setItem('user', JSON.stringify({}));
 				if (this._user) {console.log(JSON.parse(JSON.stringify(localStorage.getItem('user'))));}
@@ -170,3 +186,4 @@ export class AuthService {
 		})
 	}
 }
+//# sourceMappingURL=./auth.service.ts.generated.js.map
